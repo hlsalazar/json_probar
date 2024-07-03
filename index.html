@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Firebase Array Insertion</title>
-    <!-- Agregar Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"></script>
 </head>
 <body>
     <h1>Inserción de Array en Firebase</h1>
     <button id="insertButton">Insertar Array</button>
 
-    <script>
+    <script type="module">
+        // Importar las funciones necesarias del SDK de Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
+
         // Configuración de Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDXj7QuX8r4aVvRbuOljxrY26kZLpP8KFM",
@@ -26,8 +28,9 @@
         };
 
         // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
 
         // Array de gazeevents (ejemplo)
         const gazeevents = [
@@ -38,14 +41,14 @@
 
         // Función para insertar el array en Firebase
         function insertArray() {
-            const ref = database.ref('gazeevents');
-            ref.set(gazeevents, (error) => {
-                if (error) {
-                    console.error("Error al insertar el array: ", error);
-                } else {
+            const dbRef = ref(database, 'gazeevents');
+            set(dbRef, gazeevents)
+                .then(() => {
                     console.log("Array insertado correctamente.");
-                }
-            });
+                })
+                .catch((error) => {
+                    console.error("Error al insertar el array: ", error);
+                });
         }
 
         // Asignar el evento click al botón
