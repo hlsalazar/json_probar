@@ -1,57 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firebase Array Insertion</title>
-  <!-- Agregar Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Array Insertion</title>
+    <!-- Agregar Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"></script>
 </head>
-
 <body>
-  <h1>Inserción de Array en Firebase</h1>
-  <button id="insertButton">Insertar Array</button>
+    <h1>Inserción de Array en Firebase</h1>
+    <button id="insertButton">Insertar Array</button>
 
-  <script>
-    // Configuración de Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyDXj7QuX8r4aVvRbuOljxrY26kZLpP8KFM",
-      authDomain: "registroocularuso.firebaseapp.com",
-      projectId: "registroocularuso",
-      storageBucket: "registroocularuso.appspot.com",
-      messagingSenderId: "230219267012",
-      appId: "1:230219267012:web:7b8989887687bc16c78291",
-      measurementId: "G-2FVK8VQHN4"
-    };
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXj7QuX8r4aVvRbuOljxrY26kZLpP8KFM",
+            authDomain: "registroocularuso.firebaseapp.com",
+            databaseURL: "https://registroocularuso-default-rtdb.firebaseio.com",
+            projectId: "registroocularuso",
+            storageBucket: "registroocularuso.appspot.com",
+            messagingSenderId: "230219267012",
+            appId: "1:230219267012:web:7b8989887687bc16c78291",
+            measurementId: "G-2FVK8VQHN4"
+        };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-    // Array de gazeevents (ejemplo)
-    const gazeevents = [
-      { id: 1, event: "event1", timestamp: "2024-07-01T12:00:00Z" },
-      { id: 2, event: "event2", timestamp: "2024-07-01T12:05:00Z" },
-      // Agrega más eventos según sea necesario
-    ];
+        // Array de gazeevents (ejemplo)
+        const gazeevents = [
+            { id: 1, event: "event1", timestamp: "2024-07-01T12:00:00Z" },
+            { id: 2, event: "event2", timestamp: "2024-07-01T12:05:00Z" },
+            // Agrega más eventos según sea necesario
+        ];
 
-    // Función para insertar el array en Firebase
-    function insertArray() {
-      const ref = database.ref('gazeevents');
-      ref.set(gazeevents, (error) => {
-        if (error) {
-          console.error("Error al insertar el array: ", error);
-        } else {
-          console.log("Array insertado correctamente.");
+        // Función para insertar el array en Firebase
+        function insertArray() {
+            const ref = database.ref('gazeevents');
+            ref.set(gazeevents, (error) => {
+                if (error) {
+                    console.error("Error al insertar el array: ", error);
+                } else {
+                    console.log("Array insertado correctamente.");
+                }
+            });
         }
-      });
-    }
 
-    // Asignar el evento click al botón
-    document.getElementById('insertButton').addEventListener('click', insertArray);
-  </script>
+        // Asignar el evento click al botón
+        document.getElementById('insertButton').addEventListener('click', insertArray);
+    </script>
 </body>
-
 </html>
