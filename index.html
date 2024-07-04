@@ -1,36 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firebase Array Insertion</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase and Vercel Example</title>
 </head>
 <body>
-  <h1>Inserción de Array en Firebase</h1>
-  <button id="insertButton">Insertar Array</button>
+    <h1>Guardar datos en Firebase</h1>
+    <form id="dataForm">
+        <input type="text" id="dataInput" placeholder="Escribe algo..." required>
+        <button type="submit">Guardar</button>
+    </form>
 
-  <script src="./env-config.js"></script>
-  <script type="module">
-    import { firebaseConfig, app, database, analytics } from './firebaseConfig.js';
-    import { ref, set } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-
-    const gazeevents = [
-      { id: 1, event: "event1", timestamp: "2024-07-01T12:00:00Z" },
-      { id: 30, event: "event2", timestamp: "2024-07-01T12:05:00Z" },
-    ];
-
-    function insertArray() {
-      const dbRef = ref(database, 'gazeevents');
-      set(dbRef, gazeevents)
-        .then(() => {
-          console.log("Array insertado correctamente.");
-        })
-        .catch((error) => {
-          console.error("Error al insertar el array: ", error);
-        });
-    }
-
-    document.getElementById('insertButton').addEventListener('click', insertArray);
-  </script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
